@@ -63,8 +63,8 @@ public class Main {
 		
 		boolean[] networkInputs = new boolean[2];
 		
-		networkInputs[0] = false;
-		networkInputs[1] = false;
+		networkInputs[0] = true;
+		networkInputs[1] = true;
 		
 		boolean[] networkOutputs = network.runNetwork(networkInputs);
 		

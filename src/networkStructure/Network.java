@@ -5,7 +5,6 @@ import java.util.List;
 
 public class Network extends Layer {
 	private List<PerceptronLayer> layers; 
-	private int numInputs;
 	
 	public Network(int numInputs){
 		this.numInputs = numInputs;
@@ -20,6 +19,8 @@ public class Network extends Layer {
 	public void addLayer(int numOutputs){
 		int previousLayerOutputs = layers.get(layers.size() - 1).getNumOutputs(); //Minus 1 here because layers.size() starts at 1 but the collection indexing system starts at 0
 		layers.add(new PerceptronLayer(previousLayerOutputs, numOutputs));
+		
+		this.numOutputs = numOutputs; 
 	}
 	
 	public boolean[] runNetwork(boolean[] networkInputs){
