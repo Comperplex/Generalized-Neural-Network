@@ -23,14 +23,14 @@ public class Network extends Layer {
 		this.numOutputs = numOutputs; 
 	}
 	
-	public boolean[] runNetwork(boolean[] networkInputs){
-		boolean[] layerOutputs = layers.get(0).propageteInput(networkInputs);
+	public Object[] propagateInput(Object[] networkInputs){
+		Object[] layerOutputs = layers.get(0).propagateInput(networkInputs);
 		for(int i = 1; i < layers.size(); i++){ //i = 1 because the first layer was already propagated
 			System.out.println("Propagating layer " + i);	
-			layerOutputs = layers.get(i).propageteInput(layerOutputs);
-			for(boolean b: layerOutputs){
-				System.out.println(b);
-			}
+			layerOutputs = layers.get(i).propagateInput(layerOutputs);
+//			for(boolean b: layerOutputs){
+//				System.out.println(b);
+//			}
 		}
 		return layerOutputs;
 	}

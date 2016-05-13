@@ -1,8 +1,6 @@
 package networkStructure;
 
 public class PerceptronLayer extends Layer {
-	private int numInputs;
-	private int numOutputs;
 	private double[][] inputWeights;
 	private double[] biasWeights;
 	private static final double FIRING_THRESHOLD = 0.5; 
@@ -14,14 +12,19 @@ public class PerceptronLayer extends Layer {
 		biasWeights = new double[numOutputs];
 	}
 	
-	public boolean[] propageteInput(boolean[] input){
+	public Boolean[] propagateInput(Object[] input){
 		
-		boolean[] output = new boolean[numOutputs];
+		if(!(input instanceof Boolean[])){
+			System.out.println("Input to perceptron layer is not an array of booleans");
+			return null; 
+		}
+		
+		Boolean[] output = new Boolean[numOutputs];
 		if(input.length == numInputs){
 			for(int i = 0; i < numOutputs; i++){
 				double weightSum = 0;
 				for(int j = 0; j < numInputs; j++){
-					if(input[j]){
+					if((Boolean) input[j]){
 						weightSum += inputWeights[j][i];
 					}
 				}
@@ -50,14 +53,6 @@ public class PerceptronLayer extends Layer {
 		} else{
 			biasWeights[outputIndex] = weightValue;
 		}
-	}
-	
-	public int getNumOutputs(){
-		return numOutputs;
-	}
-	
-	public int getNumInputs(){
-		return numInputs;
 	}
 	
 	public static double getFiringThreshold() {

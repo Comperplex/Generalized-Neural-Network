@@ -61,15 +61,15 @@ public class Main {
 	
 		network.printNetworkStats();
 		
-		boolean[] networkInputs = new boolean[2];
+		Boolean[] networkInputs = new Boolean[2];
 		
 		networkInputs[0] = true;
 		networkInputs[1] = true;
 		
-		boolean[] networkOutputs = network.runNetwork(networkInputs);
+		Object[] networkOutputs = network.propagateInput(networkInputs);
 		
-		for(boolean b: networkOutputs){
-			System.out.println("Network result: " + b);
+		for(Object o: networkOutputs){
+			System.out.println("Network result: " + o);
 		}
 	}
 }
