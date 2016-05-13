@@ -1,7 +1,7 @@
 package io;
 
 import networkStructure.PerceptronLayer;
-import networkStructure.Network;
+import networkStructure.PerceptronNetwork;
 
 public class Main {
 	public static void main(String[] args){
@@ -36,13 +36,13 @@ public class Main {
 //		norOutput = norGate.propageteInput(norInput);
 //		System.out.println(norOutput[0]);
 		
-		Network network = new Network(2);
+		PerceptronNetwork network = new PerceptronNetwork(2);
 		network.addLayer(2);
 		network.addLayer(1);
 		network.addLayer(1);
-		PerceptronLayer layer1 = network.getLayer(1);
-		PerceptronLayer layer2 = network.getLayer(2);
-		PerceptronLayer layer3 = network.getLayer(3);
+		PerceptronLayer layer1 = (PerceptronLayer) network.getAllLayers().get(1);
+		PerceptronLayer layer2 = (PerceptronLayer) network.getAllLayers().get(2);
+		PerceptronLayer layer3 = (PerceptronLayer) network.getAllLayers().get(3);
 		
 		layer1.setBiasWeightAtLocation(0, -0.5);
 		layer1.setBiasWeightAtLocation(1, 1); 
@@ -64,7 +64,7 @@ public class Main {
 		Boolean[] networkInputs = new Boolean[2];
 		
 		networkInputs[0] = true;
-		networkInputs[1] = true;
+		networkInputs[1] = false;
 		
 		Object[] networkOutputs = network.propagateInput(networkInputs);
 		

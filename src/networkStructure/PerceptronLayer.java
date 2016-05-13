@@ -12,6 +12,7 @@ public class PerceptronLayer extends Layer {
 		biasWeights = new double[numOutputs];
 	}
 	
+	@Override
 	public Boolean[] propagateInput(Object[] input){
 		
 		if(!(input instanceof Boolean[])){
