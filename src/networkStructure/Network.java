@@ -17,7 +17,7 @@ public abstract class Network extends Layer {
 	public Object[] propagateInput(Object[] networkInputs){
 		Object[] layerOutputs = layers.get(0).propagateInput(networkInputs);
 		for(int i = 1; i < layers.size(); i++){ //i = 1 because the first layer was already propagated
-			System.out.println("Propagating layer " + i);	
+			//System.out.println("Propagating layer " + i);	
 			layerOutputs = layers.get(i).propagateInput(layerOutputs);
 		}
 		return layerOutputs;
@@ -36,6 +36,15 @@ public abstract class Network extends Layer {
 	
 	public List<Layer> getAllLayers(){
 		return layers; 
+	}
+	
+	public void printNetworkStats(){
+		int loopIterator = 0;
+		for(Layer l: layers){
+			System.out.println("For layer: " + loopIterator);
+			System.out.println("Num inputs: " + l.getNumInputs() + " Num outputs: " + l.getNumOutputs());
+			loopIterator++;
+		}
 	}
 
 }

@@ -15,13 +15,4 @@ public class PerceptronNetwork extends Network {
 		super.addLayer(numOutputs);
 		layers.add(new PerceptronLayer(previousLayerOutputs, numOutputs));
 	}
-	
-	public void printNetworkStats(){
-		int loopIterator = 0;
-		for(Layer l: layers){
-			System.out.println("For layer: " + loopIterator);
-			System.out.println("Num inputs: " + l.getNumInputs() + " Num outputs: " + l.getNumOutputs());
-			loopIterator++;
-		}
-	}
 }

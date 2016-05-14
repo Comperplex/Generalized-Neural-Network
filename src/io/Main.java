@@ -1,5 +1,6 @@
 package io;
 
+import networkStructure.NetworkUtils;
 import networkStructure.PerceptronLayer;
 import networkStructure.PerceptronNetwork;
 
@@ -36,40 +37,48 @@ public class Main {
 //		norOutput = norGate.propageteInput(norInput);
 //		System.out.println(norOutput[0]);
 		
-		PerceptronNetwork network = new PerceptronNetwork(2);
-		network.addLayer(2);
-		network.addLayer(1);
-		network.addLayer(1);
-		PerceptronLayer layer1 = (PerceptronLayer) network.getAllLayers().get(1);
-		PerceptronLayer layer2 = (PerceptronLayer) network.getAllLayers().get(2);
-		PerceptronLayer layer3 = (PerceptronLayer) network.getAllLayers().get(3);
+//		PerceptronNetwork network = new PerceptronNetwork(2);
+//		network.addLayer(2);
+//		network.addLayer(1);
+//		network.addLayer(1);
+//		PerceptronLayer layer1 = (PerceptronLayer) network.getAllLayers().get(1);
+//		PerceptronLayer layer2 = (PerceptronLayer) network.getAllLayers().get(2);
+//		PerceptronLayer layer3 = (PerceptronLayer) network.getAllLayers().get(3);
+//		
+//		layer1.setBiasWeightAtLocation(0, -0.5);
+//		layer1.setBiasWeightAtLocation(1, 1); 
+//		
+//		layer1.setInputWeightAtLocation(0, 0, 0.5);
+//		layer1.setInputWeightAtLocation(0, 1, -0.6);
+//		
+//		layer1.setInputWeightAtLocation(1, 0, 0.5);
+//		layer1.setInputWeightAtLocation(1, 1, -0.6);
+//		
+//		layer2.setInputWeightAtLocation(0, 0, 0.5);
+//		layer2.setInputWeightAtLocation(1, 0, 0.5);
+//		
+//		layer3.setBiasWeightAtLocation(0, 0.5);
+//		layer3.setInputWeightAtLocation(0, 0, -0.1);
+//	
+//		network.printNetworkStats();
+//		
+//		Boolean[] networkInputs = new Boolean[2];
+//		
+//		networkInputs[0] = true;
+//		networkInputs[1] = false;
+//		
+//		Object[] networkOutputs = network.propagateInput(networkInputs);
+//		
+//		for(Object o: networkOutputs){
+//			System.out.println("Network result: " + o);
+//		}
 		
-		layer1.setBiasWeightAtLocation(0, -0.5);
-		layer1.setBiasWeightAtLocation(1, 1); 
-		
-		layer1.setInputWeightAtLocation(0, 0, 0.5);
-		layer1.setInputWeightAtLocation(0, 1, -0.6);
-		
-		layer1.setInputWeightAtLocation(1, 0, 0.5);
-		layer1.setInputWeightAtLocation(1, 1, -0.6);
-		
-		layer2.setInputWeightAtLocation(0, 0, 0.5);
-		layer2.setInputWeightAtLocation(1, 0, 0.5);
-		
-		layer3.setBiasWeightAtLocation(0, 0.5);
-		layer3.setInputWeightAtLocation(0, 0, -0.1);
-	
-		network.printNetworkStats();
-		
-		Boolean[] networkInputs = new Boolean[2];
-		
-		networkInputs[0] = true;
-		networkInputs[1] = false;
-		
-		Object[] networkOutputs = network.propagateInput(networkInputs);
-		
-		for(Object o: networkOutputs){
-			System.out.println("Network result: " + o);
-		}
+		PerceptronNetwork network = NetworkUtils.xorNetwork();
+		network.addNetworkAsLayer(NetworkUtils.inverterPerceptronNetwork());
+		network.addNetworkAsLayer(NetworkUtils.inverterPerceptronNetwork());
+		network.addNetworkAsLayer(NetworkUtils.inverterPerceptronNetwork());
+		network.addNetworkAsLayer(NetworkUtils.inverterPerceptronNetwork());
+		network.addNetworkAsLayer(NetworkUtils.inverterPerceptronNetwork());
+		NetworkUtils.printAllPossiblePerceptronIOStates(network);
 	}
 }

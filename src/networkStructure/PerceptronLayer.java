@@ -31,7 +31,7 @@ public class PerceptronLayer extends Layer {
 				}
 				weightSum += biasWeights[i];
 				output[i] = weightSum >= FIRING_THRESHOLD;
-				System.out.println("weightSum is: " + weightSum);
+				//System.out.println("weightSum is: " + weightSum);
 			}
 			return output;
 		} else{
