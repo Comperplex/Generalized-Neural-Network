@@ -1,15 +1,10 @@
 package networkStructure;
 
 public class PerceptronLayer extends Layer {
-	private double[][] inputWeights;
-	private double[] biasWeights;
 	private static final double FIRING_THRESHOLD = 0.5; 
 	
 	public PerceptronLayer(int numInputs, int numOutputs){
-		this.numInputs = numInputs;
-		this.numOutputs = numOutputs;
-		inputWeights = new double[numInputs][numOutputs];
-		biasWeights = new double[numOutputs];
+		super(numInputs, numOutputs);
 	}
 	
 	@Override
@@ -37,22 +32,6 @@ public class PerceptronLayer extends Layer {
 		} else{
 			System.out.println("Invalid number of inputs in layer. Expected: " + numInputs + " got " + input.length);
 			return null;
-		}
-	}
-	
-	public void setInputWeightAtLocation(int inputIndex, int outputIndex, double weightValue){
-		if(inputIndex < 0 || inputIndex > numInputs || outputIndex < 0 || outputIndex > numOutputs){
-			System.out.println("Invalid location for input weight set");
-		} else{
-			inputWeights[inputIndex][outputIndex] = weightValue;
-		}
-	}
-	
-	public void setBiasWeightAtLocation(int outputIndex, double weightValue){
-		if(outputIndex < 0 || outputIndex > numOutputs){
-			System.out.println("Invalid location for bias weight set");
-		} else{
-			biasWeights[outputIndex] = weightValue;
 		}
 	}
 	

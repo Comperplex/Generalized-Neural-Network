@@ -69,8 +69,10 @@ public class NetworkUtils {
 			
 			System.out.println("The network output is: ");
 			for(Boolean b: networkOutput){
-				System.out.println(b + "\n");
+				System.out.println(b);
 			}
+			
+			System.out.println("\n");
 		}
 	}
 }

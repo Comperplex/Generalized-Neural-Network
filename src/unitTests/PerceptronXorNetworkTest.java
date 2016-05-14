@@ -6,7 +6,7 @@ import networkStructure.NetworkUtils;
 import networkStructure.PerceptronNetwork;
 
 
-public class PerceptronXorNetworkTest extends PerceptronBooleanLogicTest {
+public class PerceptronXorNetworkTest extends PerceptronBooleanLogicTestFormat {
 	
 	
 	@Test

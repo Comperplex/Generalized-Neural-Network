@@ -5,7 +5,7 @@ import org.junit.Test;
 import networkStructure.NetworkUtils;
 import networkStructure.PerceptronNetwork;
 
-public class PerceptronORTest extends PerceptronBooleanLogicTest{
+public class PerceptronORTest extends PerceptronBooleanLogicTestFormat{
 
 	@Test
 	public void test() {

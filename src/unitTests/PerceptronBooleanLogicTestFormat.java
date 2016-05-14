@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import networkStructure.PerceptronNetwork;
 
-public abstract class PerceptronBooleanLogicTest {
+public abstract class PerceptronBooleanLogicTestFormat {
 	
 	public abstract void test();
 	

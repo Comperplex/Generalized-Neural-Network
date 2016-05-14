@@ -9,7 +9,7 @@ public abstract class Network extends Layer {
 	protected int previousLayerOutputs;
 	
 	public Network(int numInputs){
-		this.numInputs = numInputs; 
+		super(numInputs, 0); //FIXME It makes no sense for the Layer constructor which super calls to establish a set of weights for the network itself
 		layers = new ArrayList<Layer>();
 	}
 

@@ -1,8 +1,8 @@
 package io;
 
 import networkStructure.NetworkUtils;
-import networkStructure.PerceptronLayer;
 import networkStructure.PerceptronNetwork;
+import networkTraining.Mutator;
 
 public class Main {
 	public static void main(String[] args){
@@ -73,12 +73,13 @@ public class Main {
 //			System.out.println("Network result: " + o);
 //		}
 		
-		PerceptronNetwork network = NetworkUtils.xorNetwork();
-		network.addNetworkAsLayer(NetworkUtils.inverterPerceptronNetwork());
-		network.addNetworkAsLayer(NetworkUtils.inverterPerceptronNetwork());
-		network.addNetworkAsLayer(NetworkUtils.inverterPerceptronNetwork());
-		network.addNetworkAsLayer(NetworkUtils.inverterPerceptronNetwork());
-		network.addNetworkAsLayer(NetworkUtils.inverterPerceptronNetwork());
+		PerceptronNetwork network = new PerceptronNetwork(3);
+		network.addLayer(3);
+		network.addLayer(3);
+		
+		Mutator mutator = new Mutator();
+		
+		mutator.randomizeNetworkWeights(network, 1, 1);
 		NetworkUtils.printAllPossiblePerceptronIOStates(network);
 	}
 }
