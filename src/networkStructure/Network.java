@@ -29,7 +29,7 @@ public abstract class Network extends Layer {
 	}
 	
 	public void addNetworkAsLayer(Network network){
-		//FIXME Add protection so that the wrong type of network isn't added by mistake
+		//FIXME Add protection so that the wrong type of network isn't added by mistake. Maybe just make this abstract
 		layers.add(network);
 		this.numOutputs = network.getNumOutputs();
 	}
@@ -45,6 +45,15 @@ public abstract class Network extends Layer {
 			System.out.println("Num inputs: " + l.getNumInputs() + " Num outputs: " + l.getNumOutputs());
 			loopIterator++;
 		}
+	}
+	
+	@Override
+	public int getNumWeights(){
+		int weights = 0;
+		for(Layer l: layers){
+			weights += l.getNumWeights();
+		}
+		return weights; 
 	}
 
 }

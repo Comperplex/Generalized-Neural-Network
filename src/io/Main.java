@@ -73,13 +73,10 @@ public class Main {
 //			System.out.println("Network result: " + o);
 //		}
 		
-		PerceptronNetwork network = new PerceptronNetwork(3);
-		network.addLayer(3);
-		network.addLayer(3);
+		PerceptronNetwork network = new PerceptronNetwork(2);
+		network.addLayer(2);
 		
-		Mutator mutator = new Mutator();
-		
-		mutator.randomizeNetworkWeights(network, 1, 1);
+		Mutator.randomizeNetworkWeights(network, 1, 1, 0.25);
 		NetworkUtils.printAllPossiblePerceptronIOStates(network);
 	}
 }

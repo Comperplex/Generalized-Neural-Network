@@ -39,4 +39,8 @@ public abstract class Layer {
 	public int getNumInputs(){
 		return numInputs;
 	}
+	
+	public int getNumWeights(){
+		return numOutputs * (1 + numInputs); //TODO check that this equals the size of the inputWeights array plus the size of the biasWeights array
+	}
 }
