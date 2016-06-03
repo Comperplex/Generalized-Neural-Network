@@ -2,6 +2,12 @@ package networkStructure;
 
 public class PerceptronNetwork extends Network {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private double fitnessValue; 
+	
 	public PerceptronNetwork(int numInputs){
 		super(numInputs);
 		layers.add(new PerceptronLayer(numInputs, numInputs));
@@ -14,5 +20,13 @@ public class PerceptronNetwork extends Network {
 	public void addLayer(int numOutputs){
 		super.addLayer(numOutputs);
 		layers.add(new PerceptronLayer(previousLayerOutputs, numOutputs));
+	}
+
+	public double getFitnessValue() {
+		return fitnessValue;
+	}
+
+	public void setFitnessValue(double fitnessValue) {
+		this.fitnessValue = fitnessValue;
 	}
 }

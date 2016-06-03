@@ -1,6 +1,12 @@
 package networkStructure;
 
-public abstract class Layer {
+import java.io.Serializable;
+
+public abstract class Layer implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected int numInputs; 
 	protected int numOutputs;
 	
@@ -43,4 +49,23 @@ public abstract class Layer {
 	public int getNumWeights(){
 		return numOutputs * (1 + numInputs); //TODO check that this equals the size of the inputWeights array plus the size of the biasWeights array
 	}
+	
+	@Override
+	public String toString(){
+		String layerString;
+		layerString = ((Integer) numInputs).toString() + ((Integer) numOutputs).toString(); 
+		
+		for(double[] dArr : inputWeights){
+			for(double d : dArr){
+				layerString += ((Double) d).toString();
+			}
+		}
+		
+		for(double d : biasWeights){
+			layerString += ((Double) d).toString(); 
+		}
+		
+		return layerString;
+	}
+	
 }

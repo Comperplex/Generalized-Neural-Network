@@ -6,7 +6,7 @@ import java.util.List;
 public abstract class Network extends Layer {
 	
 	protected List<Layer> layers;
-	protected int previousLayerOutputs;
+	protected int previousLayerOutputs; //TODO this may be redundant. All the information necessary to add a new layer is contained within layers
 	
 	public Network(int numInputs){
 		super(numInputs, 0); //FIXME It makes no sense for the Layer constructor which super calls to establish a set of weights for the network itself
@@ -54,6 +54,16 @@ public abstract class Network extends Layer {
 			weights += l.getNumWeights();
 		}
 		return weights; 
+	}
+	
+	@Override
+	public String toString(){
+		String networkString = null; 
+		for(Layer l : layers){
+			networkString += layers.toString();
+		}
+		
+		return networkString;
 	}
 
 }

@@ -76,7 +76,7 @@ public class Main {
 		PerceptronNetwork network = new PerceptronNetwork(2);
 		network.addLayer(2);
 		
-		Mutator.randomizeNetworkWeights(network, 1, 1, 0.25);
+		Mutator.randomizeNetworkWeights(network, 1, 1, 1);
 		NetworkUtils.printAllPossiblePerceptronIOStates(network);
 	}
 }
