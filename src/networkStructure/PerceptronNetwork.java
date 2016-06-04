@@ -29,4 +29,14 @@ public class PerceptronNetwork extends Network {
 	public void setFitnessValue(double fitnessValue) {
 		this.fitnessValue = fitnessValue;
 	}
+
+	@Override
+	public void addNetworkAsLayer(Network network) {
+		if(network instanceof PerceptronNetwork){
+			layers.add(network);
+			this.numOutputs = network.getNumOutputs();
+		} else{
+			System.out.println("Error: Tried adding an invalid network type to a PerceptronNetwork");
+		}
+	}
 }

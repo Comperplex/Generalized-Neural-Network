@@ -8,6 +8,8 @@ public abstract class Network extends Layer {
 	protected List<Layer> layers;
 	protected int previousLayerOutputs; //TODO this may be redundant. All the information necessary to add a new layer is contained within layers
 	
+	public abstract void addNetworkAsLayer(Network network);
+	
 	public Network(int numInputs){
 		super(numInputs, 0); //FIXME It makes no sense for the Layer constructor which super calls to establish a set of weights for the network itself
 		layers = new ArrayList<Layer>();
@@ -28,10 +30,10 @@ public abstract class Network extends Layer {
 		this.numOutputs = numOutputs;
 	}
 	
-	public void addNetworkAsLayer(Network network){
-		//FIXME Add protection so that the wrong type of network isn't added by mistake. Maybe just make this abstract
-		layers.add(network);
-		this.numOutputs = network.getNumOutputs();
+	public void addMultipleSimilarLayers(int numNewLayers, int numOutputsPerLayer){
+		for(int i = 0; i < numNewLayers; i++){
+			addLayer(numOutputsPerLayer);
+		}
 	}
 	
 	public List<Layer> getAllLayers(){

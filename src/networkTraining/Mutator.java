@@ -11,7 +11,7 @@ public class Mutator {
 	private static final double MUTATION_FREQUENCY_CONSTANT = 0.125;
 	
 	public static Network randomizeNetworkWeights(Network network, double maxIMinBias, double maxIMinInput, double mutationFrequency){
-		int numPossibleMutations = network.getNumWeights(); //TODO implement mutation frequency scaling with size of network
+		int numPossibleMutations = network.getNumWeights();
 		int numActualMutations = 0;
 		System.out.println("Num Possible Mutations: " + numPossibleMutations);
 		

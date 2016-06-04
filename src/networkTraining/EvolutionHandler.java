@@ -21,7 +21,7 @@ public abstract class EvolutionHandler {
 	//END TRAINING PARAMETERS
 	
 	protected ArrayList<Network> currentGeneration;
-	protected int generationCount; 
+	protected int generationCount = 0; 
 	protected TrainingSet set; 
 	
 	public EvolutionHandler(int numStartingNetworks, int numGenerations, TrainingSet set){
@@ -30,12 +30,14 @@ public abstract class EvolutionHandler {
 		
 		for(int i = 0; i < numStartingNetworks; i++){
 			Network trainingSetNetwork = Mutator.randomizeNetworkWeights(set.generateTrainingSetNetwork(), MAXIMIN_BIAS, MAXIMIN_INPUT, 1);
-			
 			currentGeneration.add(trainingSetNetwork);
 		}
 	}
 	
 	public abstract ArrayList<Network> runEvolution(int numGenerations);
 	
+	public ArrayList<Network> getCurrentGeneration(){
+		return currentGeneration;
+	}
 	
 }
