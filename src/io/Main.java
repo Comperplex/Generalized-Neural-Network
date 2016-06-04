@@ -3,6 +3,7 @@ package io;
 import networkStructure.NetworkUtils;
 import networkStructure.PerceptronNetwork;
 import networkTraining.Mutator;
+import tictactoe.GUI;
 
 public class Main {
 	public static void main(String[] args){
@@ -73,10 +74,13 @@ public class Main {
 //			System.out.println("Network result: " + o);
 //		}
 		
-		PerceptronNetwork network = new PerceptronNetwork(2);
-		network.addLayer(2);
+//		PerceptronNetwork network = new PerceptronNetwork(2);
+//		network.addLayer(2);
+//		
+//		Mutator.randomizeNetworkWeights(network, 1, 1, 1);
+//		NetworkUtils.printAllPossiblePerceptronIOStates(network);
 		
-		Mutator.randomizeNetworkWeights(network, 1, 1, 1);
-		NetworkUtils.printAllPossiblePerceptronIOStates(network);
+		GUI gui = new GUI();
+		gui.start();
 	}
 }
