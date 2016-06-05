@@ -1,44 +1,54 @@
 package tictactoe;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.Graphics;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 
-public class GUI {
-	public static final int GUI_WIDTH = 500;
-	public static final int GUI_HEIGHT = 500;
+public class TicTacToe {
+	public static final int GUI_WIDTH = 498;
+	public static final int GUI_HEIGHT = 498;
 
 	private JFrame frame;
 	private DrawPanel drawPanel;
 	private boolean running;
 	private Screen screen;
+	private Timer timer;
+	
+	private GameBoard board; 
 
-	public GUI() {
-		frame = new JFrame("Test");
+	@SuppressWarnings("static-access")
+	public TicTacToe() {
+		frame = new JFrame("Tic Tac Toe Screen");
 
 		drawPanel = new DrawPanel();
 		frame.getContentPane().add(BorderLayout.CENTER, drawPanel);
-		frame.setResizable(false);
-		frame.setSize(GUI_WIDTH, GUI_HEIGHT);
 		frame.setLocationByPlatform(true);
 		frame.setVisible(true);
+		frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
+		frame.setResizable(false);
+		frame.setSize(GUI_HEIGHT, GUI_WIDTH);
+		frame.setResizable(true);
 		
-		this.screen = new Screen(GUI_WIDTH, GUI_HEIGHT);
-
+		this.screen = new Screen(frame);
+		board = new GameBoard();
 	}
 
 	public void update() {
-		screen.update();
+		screen.update(board.getBoard());
 		frame.repaint();
 	}
 
 	public synchronized void start() {
 		running = true;
+		timer = new Timer();
 		while (running) {
-			update();
+			if(timer.canTick()){
+				update();
+			}
 		}
 	}
 
@@ -54,12 +64,11 @@ public class GUI {
 		private static final long serialVersionUID = 1L;
 
 		public void paintComponent(Graphics g) {
-//			BufferedImage image = new BufferedImage(GUI_WIDTH, GUI_HEIGHT, BufferedImage.TYPE_INT_RGB);
-//			Graphics g2 = image.getGraphics();
-//			g2.fillRect(10, 10, 10, 10);
-//			g.drawImage(image, 0, 0, null);
-			
 			g.drawImage(screen.getImage(), 0, 0, null);	
 		}
+	}
+	
+	public GameBoard getBoard(){
+		return board; 
 	}
 }

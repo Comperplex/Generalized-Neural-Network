@@ -1,9 +1,7 @@
 package io;
 
-import networkStructure.NetworkUtils;
-import networkStructure.PerceptronNetwork;
-import networkTraining.Mutator;
-import tictactoe.GUI;
+import tictactoe.GameObject;
+import tictactoe.TicTacToe;
 
 public class Main {
 	public static void main(String[] args){
@@ -80,7 +78,8 @@ public class Main {
 //		Mutator.randomizeNetworkWeights(network, 1, 1, 1);
 //		NetworkUtils.printAllPossiblePerceptronIOStates(network);
 		
-		GUI gui = new GUI();
-		gui.start();
+		TicTacToe toe = new TicTacToe();
+		toe.start();
+		System.out.println(toe.getBoard().placePieceAtLocation(0, 0, GameObject.O)); //FIXME Need to thread the TicTacToe class so that code like this after can actually run
 	}
 }
