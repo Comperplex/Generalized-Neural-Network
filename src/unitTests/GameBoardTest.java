@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import tictactoe.GameBoard;
 import tictactoe.GameObject;
+import tictactoe.GameState;
 
 public class GameBoardTest {
 	@Test
@@ -24,8 +25,9 @@ public class GameBoardTest {
 		assertEquals(board.placePieceAtLocation(2, 2, GameObject.O), true); 
 		
 		assertEquals(board.detectWinAt(1, 1, -1, -1), true);
-		assertEquals(board.getWinner(), GameObject.O);
+		assertEquals(board.getGameState(), GameState.O_WINS);
 		
+		board.placePieceAtLocation(1, 1, GameObject.BLANK);
 		board.placePieceAtLocation(1, 1, GameObject.X);
 		assertEquals(board.detectWinAt(1, 1, 1, 0), true);
 		board.detectWinAt(1, 1, 0, 1);

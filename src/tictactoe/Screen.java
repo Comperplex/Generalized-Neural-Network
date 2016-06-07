@@ -65,7 +65,14 @@ public class Screen {
 	
 	private void drawX(int xGridLoc, int yGridLoc){ 
 		if(checkGridLocs(xGridLoc, yGridLoc)){
+			int[] squareCenter = getTileCenters(xGridLoc, yGridLoc);
+			int xWidth = (int)(cellHalfWidth / 1.5);
+			int xHeight = (int)(cellHalfHeight / 1.5);
 			
+			drawThickLine(squareCenter[0], squareCenter[1], squareCenter[0] - xWidth, squareCenter[1] - xHeight, LINE_THICKNESS, Color.RED);
+			drawThickLine(squareCenter[0], squareCenter[1], squareCenter[0] +  xWidth, squareCenter[1] + xHeight, LINE_THICKNESS, Color.RED);
+			drawThickLine(squareCenter[0], squareCenter[1], squareCenter[0] + xWidth, squareCenter[1] - xHeight, LINE_THICKNESS, Color.RED);
+			drawThickLine(squareCenter[0], squareCenter[1], squareCenter[0] - xWidth, squareCenter[1] + xHeight, LINE_THICKNESS, Color.RED);
 		}
 	}
 	
@@ -131,4 +138,34 @@ public class Screen {
 	public Image getImage(){
 		return image;
 	}
+	
+	//BEGIN CODE COPIED FROM WEB
+	 private void drawThickLine(int x1, int y1, int x2, int y2, int thickness, Color c) {
+		  // The thick line is in fact a filled polygon
+		  g.setColor(c);
+		  int dX = x2 - x1;
+		  int dY = y2 - y1;
+		  // line length
+		  double lineLength = Math.sqrt(dX * dX + dY * dY);
+
+		  double scale = (double)(thickness) / (2 * lineLength);
+
+		  double ddx = -scale * (double)dY;
+		  double ddy = scale * (double)dX;
+		  ddx += (ddx > 0) ? 0.5 : -0.5;
+		  ddy += (ddy > 0) ? 0.5 : -0.5;
+		  int dx = (int)ddx;
+		  int dy = (int)ddy;
+
+		  // Now we can compute the corner points...
+		  int xPoints[] = new int[4];
+		  int yPoints[] = new int[4];
+
+		  xPoints[0] = x1 + dx; yPoints[0] = y1 + dy;
+		  xPoints[1] = x1 - dx; yPoints[1] = y1 - dy;
+		  xPoints[2] = x2 - dx; yPoints[2] = y2 - dy;
+		  xPoints[3] = x2 + dx; yPoints[3] = y2 + dy;
+
+		  g.fillPolygon(xPoints, yPoints, 4);
+		  }
 }

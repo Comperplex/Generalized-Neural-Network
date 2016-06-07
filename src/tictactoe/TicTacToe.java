@@ -1,14 +1,13 @@
 package tictactoe;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.Graphics;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 
-public class TicTacToe {
+public class TicTacToe implements Runnable {
 	public static final int GUI_WIDTH = 498;
 	public static final int GUI_HEIGHT = 498;
 
@@ -45,15 +44,25 @@ public class TicTacToe {
 	public synchronized void start() {
 		running = true;
 		timer = new Timer();
+		new Thread(this).start();
+	}
+
+	public synchronized void stop() {
+		running = false;
+	}
+	
+	public GameBoard getBoard(){
+		return board; 
+	}
+
+	@Override
+	public void run() {
+		timer = new Timer();
 		while (running) {
 			if(timer.canTick()){
 				update();
 			}
 		}
-	}
-
-	public synchronized void stop() {
-		running = false;
 	}
 
 	class DrawPanel extends JPanel {
@@ -66,9 +75,5 @@ public class TicTacToe {
 		public void paintComponent(Graphics g) {
 			g.drawImage(screen.getImage(), 0, 0, null);	
 		}
-	}
-	
-	public GameBoard getBoard(){
-		return board; 
 	}
 }

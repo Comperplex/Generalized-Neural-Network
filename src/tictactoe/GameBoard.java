@@ -4,13 +4,12 @@ import java.util.Arrays;
 
 public class GameBoard {
 	private GameObject[][] board; 
-	private GameObject currentTurn;
-	private GameObject winner;
+	private GameState gameState;
+	private static final GameState STARTING_PLAYER = GameState.X_TURN;
 	
 	public GameBoard(){
 		board = new GameObject[3][3];
-		winner = GameObject.BLANK;
-		currentTurn = GameObject.BLANK;
+		gameState = STARTING_PLAYER;
 		for(GameObject[] row : board){
 			Arrays.fill(row, GameObject.BLANK);
 		}
@@ -22,7 +21,7 @@ public class GameBoard {
 		if(xLoc >=0 && xLoc <= 2 && yLoc >=0 && yLoc <= 2){ //Checks that the piece is trying to placed into a valid location
 			if(board[xLoc][yLoc] == GameObject.BLANK || piece == GameObject.BLANK){ //Checks that a nonblank piece is not being placed over one that already exists
 				board[xLoc][yLoc] = piece;
-				System.out.println(currentTurn + " placed an " + piece + " piece at: " + xLoc + " , " + yLoc);
+				System.out.println(gameState + " placed an " + piece + " piece at: " + xLoc + " , " + yLoc);
 				isSuccess = true; 
 			}
 		} else{
@@ -30,6 +29,17 @@ public class GameBoard {
 			//TODO This might get spammy during evolution
 		}
 		return isSuccess;
+	}
+	
+	public TurnResult runTurn(int xLoc, int yLoc){ //returns a boolean to pass on the success/failure of the piece placement //no bad.. make this return an ENUM for the game state.
+		if(gameState == GameState.X_TURN || gameState == GameState.O_TURN){ //TODO this if statement may not be necessary
+			GameObject attemptedPlace = gameState.getGameObjectForTurn(); 
+			boolean isSuccess = placePieceAtLocation(xLoc, yLoc, attemptedPlace);
+			gameState = testAllWins();
+			return attemptedPlace.getEquivalentTurnResultState(isSuccess);
+		} else{
+			return TurnResult.NO_TRY;
+		}
 	}
 	
 	public boolean detectWinAt(int xOrigin, int yOrigin, int xScope, int yScope){ //This is the potential source of every single ArrayIndexOutOfBoundsException that ever existed
@@ -45,8 +55,8 @@ public class GameBoard {
 			System.out.println(originPiece);
 			
 			if(originPiece.equals(positiveAdjacency) && originPiece.equals(negativeAdjacency)){
-				System.out.println(winner + " won!");
-				 winner = originPiece;
+				System.out.println(gameState + " won!");
+				 gameState = originPiece.getEquivalentGameState();
 				 winFound = true; 
 			}
 		}
@@ -58,7 +68,7 @@ public class GameBoard {
 		return Arrays.asList(board).contains(GameObject.BLANK);
 	}
 	
-	public GameObject testAllWins(){
+	public GameState testAllWins(){
 		detectWinAt(1, 1, 1, 0); //Middle row horizontal
 		detectWinAt(1, 1, 0, 1); //Middle column vertical
 		detectWinAt(1, 1, -1, -1); //Negative diagonal
@@ -68,15 +78,27 @@ public class GameBoard {
 		detectWinAt(1, 0, 1, 0); //Top row horizontal
 		detectWinAt(1, 2, 1, 0); //Bottom row horizontal
 		
-		return winner; 
+		if(gameState == GameState.X_TURN || gameState == GameState.O_TURN){
+			gameState = gameState.switchTurn();
+		}
+		
+		return gameState;
 	}
 	
-	public GameObject getWinner(){
-		return winner; 
+	public GameState getGameState(){
+		return gameState; 
 	}
 	
 	public GameObject[][] getBoard(){
 		return board; 
+	}
+	
+	public void resetBoard(){
+		gameState = STARTING_PLAYER;
+		
+		for(GameObject[] row : board){
+			Arrays.fill(row, GameObject.BLANK);
+		}
 	}
 	
 }
