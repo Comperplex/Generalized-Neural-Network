@@ -6,22 +6,22 @@ import org.junit.Test;
 
 import tictactoe.GameBoard;
 import tictactoe.GameObject;
+import tictactoe.Player;
 import tictactoe.TurnResult;
 
 public class RunTurnTest {
 	@Test
 	public void test(){
-		GameBoard board = new GameBoard(); 
+		GameBoard board = new GameBoard();
+		Player pX = new Player(GameObject.X, "test");
+		Player pO = new Player(GameObject.O, "test");
 		
-		assertEquals(board.runTurn(0, 0), TurnResult.X_SUCCEEDS); //X plays at 0,0
-		assertEquals(board.runTurn(1, 0), TurnResult.O_SUCCEEDS); //O plays at 1,0
-		assertEquals(board.runTurn(1, 1), TurnResult.X_SUCCEEDS); //X plays at 1,1
-		assertEquals(board.runTurn(2, 0), TurnResult.O_SUCCEEDS); //O plays at 2,0
-		assertEquals(board.runTurn(2, 2), TurnResult.X_SUCCEEDS); //X plays at 2,2
-		assertEquals(board.runTurn(1, 0), TurnResult.NO_TRY); //Since there is a win, the turn result won't work
+		//Will run the turn pattern given in the "test" case of the player class
+		
+		assertEquals(board.runTurn(pO, pX), TurnResult.X_SUCCEEDS); //Will fail if the starting player is changed to O
+		assertEquals(board.runTurn(pO, pX), TurnResult.O_SUCCEEDS);
 		
 		board.placePieceAtLocation(2, 2, GameObject.BLANK);
 		board.resetBoard();
-		assertEquals(board.runTurn(2, 2), TurnResult.X_SUCCEEDS);
 	}
 }

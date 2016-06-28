@@ -1,7 +1,13 @@
 package tictactoe;
 
 public enum GameObject {
-	BLANK, X, O;
+	BLANK(0), X(1), O(2);
+	
+	private int index; 
+	
+	private GameObject(int index){
+		this.index = index; 
+	}
 	
 	public TurnResult getEquivalentTurnResultState(boolean isSuccess){
 		switch(this){
@@ -30,5 +36,18 @@ public enum GameObject {
 			default: return GameState.TIE;
 		}
 		
+	}
+	
+	public int getIntEquivalentInt(){
+		return this.index;
+	}
+	
+	public GameObject getEquivalentGameObject(int index){
+		switch(index){
+			case 0: return BLANK;
+			case 1: return X;
+			case 2: return O;
+			default: return BLANK;
+		}
 	}
 }

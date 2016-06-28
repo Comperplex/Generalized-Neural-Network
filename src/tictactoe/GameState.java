@@ -1,13 +1,13 @@
 package tictactoe;
 
 public enum GameState {
-	X_WINS, O_WINS, TIE, X_TURN, O_TURN;
+	X_WINS, O_WINS, TIE, X_TURN, O_TURN, INCOMPLETE;
 	
 	public GameState switchTurn(){ //returns the opposite of the GameObject which calls this method
 		switch(this){
 			case X_TURN: return O_TURN;
 			case O_TURN: return X_TURN;
-			default: return TIE;
+			default: return INCOMPLETE;
 		}
 	}
 	

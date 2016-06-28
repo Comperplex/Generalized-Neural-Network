@@ -7,6 +7,8 @@ public abstract class Network extends Layer {
 	
 	protected List<Layer> layers;
 	protected int previousLayerOutputs; //TODO this may be redundant. All the information necessary to add a new layer is contained within layers
+	protected String networkName;
+	protected double fitnessValue; 
 	
 	public abstract void addNetworkAsLayer(Network network);
 	
@@ -66,6 +68,22 @@ public abstract class Network extends Layer {
 		}
 		
 		return networkString;
+	}
+	
+	public String getNetworkName() {
+		return networkName;
+	}
+
+	public void setNetworkName(String networkName) {
+		this.networkName = networkName;
+	}
+
+	public double getFitnessValue() {
+		return fitnessValue;
+	}
+
+	public void setFitnessValue(double fitnessValue) {
+		this.fitnessValue = fitnessValue;
 	}
 
 }

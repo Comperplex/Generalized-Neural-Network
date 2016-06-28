@@ -8,6 +8,7 @@ public class Main {
 	public static void main(String[] args){
 		TicTacToe toe = new TicTacToe();
 		GameBoard board = toe.getBoard();
+		
 		toe.start();
 		board.placePieceAtLocation(0, 0, GameObject.O);
 		board.placePieceAtLocation(0, 0, GameObject.X);

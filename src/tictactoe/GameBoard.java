@@ -31,14 +31,26 @@ public class GameBoard {
 		return isSuccess;
 	}
 	
-	public TurnResult runTurn(int xLoc, int yLoc){ //returns a boolean to pass on the success/failure of the piece placement //no bad.. make this return an ENUM for the game state.
-		if(gameState == GameState.X_TURN || gameState == GameState.O_TURN){ //TODO this if statement may not be necessary
-			GameObject attemptedPlace = gameState.getGameObjectForTurn(); 
-			boolean isSuccess = placePieceAtLocation(xLoc, yLoc, attemptedPlace);
-			gameState = testAllWins();
-			return attemptedPlace.getEquivalentTurnResultState(isSuccess);
-		} else{
-			return TurnResult.NO_TRY;
+	public TurnResult runTurn(Player pO, Player pX){ //returns a boolean to pass on the success/failure of the piece placement //no bad.. make this return an ENUM for the game state.
+		
+		GameObject attemptedPlace = gameState.getGameObjectForTurn();
+		boolean isSuccess = false;
+		int[] coords;
+		
+		switch(gameState){
+			case X_TURN:
+				coords = pX.getNextCoords(board); 
+				isSuccess = placePieceAtLocation(coords[0], coords[1], GameObject.X);
+				gameState = testAllWins();
+				return attemptedPlace.getEquivalentTurnResultState(isSuccess);
+				
+			case O_TURN:
+				coords = pO.getNextCoords(board);
+				isSuccess = placePieceAtLocation(coords[0], coords[1], GameObject.O);
+				gameState = testAllWins();
+				return attemptedPlace.getEquivalentTurnResultState(isSuccess);
+				
+			default: return TurnResult.NO_TRY;
 		}
 	}
 	
@@ -68,6 +80,10 @@ public class GameBoard {
 		return Arrays.asList(board).contains(GameObject.BLANK);
 	}
 	
+	public boolean isGameOver(){
+		return gameState == GameState.TIE || gameState == GameState.X_WINS || gameState == GameState.O_WINS;
+	}
+	
 	public GameState testAllWins(){
 		detectWinAt(1, 1, 1, 0); //Middle row horizontal
 		detectWinAt(1, 1, 0, 1); //Middle column vertical
@@ -83,6 +99,10 @@ public class GameBoard {
 		}
 		
 		return gameState;
+	}
+	
+	public void setGameState(GameState state){
+		gameState = state; 
 	}
 	
 	public GameState getGameState(){

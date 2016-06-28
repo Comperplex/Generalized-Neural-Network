@@ -2,6 +2,7 @@ package tictactoe;
 
 import java.awt.BorderLayout;
 import java.awt.Graphics;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -17,7 +18,8 @@ public class TicTacToe implements Runnable {
 	private Screen screen;
 	private Timer timer;
 	
-	private GameBoard board; 
+	private GameBoard board;
+	private static final int MAX_FAIL_COUNT = 3;
 
 	@SuppressWarnings("static-access")
 	public TicTacToe() {
@@ -34,6 +36,19 @@ public class TicTacToe implements Runnable {
 		
 		this.screen = new Screen(frame);
 		board = new GameBoard();
+	}
+	
+	public TicTacToeResult runGame(Player pO, Player pX){ //pO must be of player type O and pX must be of player type X
+		TicTacToeResult result = new TicTacToeResult();
+		ArrayList<TurnResult> turns = new ArrayList<TurnResult>();
+		int numFails = 0; 
+		
+		while(!board.isGameOver()){ //do this while the game is not over
+			TurnResult currentResult = board.runTurn(pO, pX);
+			turns.add(currentResult);
+		}
+		return result; 
+		
 	}
 
 	public void update() {
