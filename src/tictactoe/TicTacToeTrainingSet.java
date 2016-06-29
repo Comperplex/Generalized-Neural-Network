@@ -2,9 +2,9 @@ package tictactoe;
 
 import networkStructure.Network;
 import networkStructure.PerceptronNetwork;
-import networkTraining.TrainingSet;
+import networkTraining.TwoPlayerGameTrainingSet;
 
-public class TicTacToeTrainingSet implements TrainingSet { 
+public class TicTacToeTrainingSet implements TwoPlayerGameTrainingSet { 
 	
 	public static final String NETWORK_NAME = "TicTacToe";
 	
@@ -13,6 +13,7 @@ public class TicTacToeTrainingSet implements TrainingSet {
 	private static final int NUM_OUTPUTS = 9; //One output for each of the squares on the board. Game will keep track of which network is which color
 	
 	private TicTacToe toe;
+	private TicTacToeResult currentResult; 
 	
 	//Begin fitness function parameters
 
@@ -27,24 +28,29 @@ public class TicTacToeTrainingSet implements TrainingSet {
 		return ticTacToeAI;
 	}
 	
-	public void playGamePerceptron(PerceptronNetwork pA, PerceptronNetwork pB){
-		if(pA.getNetworkName() == NETWORK_NAME && pB.getNetworkName() == NETWORK_NAME){ //Making sure the networks in question are the right type
+	public void playTrainingGame(Network pANet, Network pBNet){
+		if(pANet.getNetworkName() == NETWORK_NAME && pBNet.getNetworkName() == NETWORK_NAME //Making sure the networks in question are the right type.
+				&& pANet instanceof PerceptronNetwork && pBNet instanceof PerceptronNetwork){ 
+			
+			Player pO = new Player(GameObject.O, (PerceptronNetwork) pBNet);
+			Player pX = new Player(GameObject.X, (PerceptronNetwork) pANet);
+			
 			toe = new TicTacToe();
 			toe.start();
-			GameBoard game = toe.getBoard();
+			currentResult = toe.runGame(pO, pX);
+			
+			pANet.setFitnessValue(fitnessFunction(pANet)); 
+			pBNet.setFitnessValue(fitnessFunction(pBNet));
 		}
 	}
 
 	@Override
-	public double fitnessFunction() {
+	public double fitnessFunction(Network network) { 
 		//Each network should play twice. Once as X and once as O against the same network opponent
 		//Fitness function for tic tac toe should take into account the following things; 
 		//Number of wins out of 2 rounds with its opponent. Wins should have high priority over ties and dead games. 
 		//win > tie > loss > dead game
 		//Count the number of correctly placed pieces per match. Use this as a secondary contribution to the fitness function. 
-		
-		
 		return 0;
 	}
-
 }

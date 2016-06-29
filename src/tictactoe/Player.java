@@ -8,11 +8,15 @@ public class Player {
 	private String playerType;
 	private PerceptronNetwork network;
 	
-	private int testCount = 0; //Used for testing the runTurn class
-	
-	public Player(GameObject playerObject, String playerType){
-		this.playerType = playerType; 
+	public Player(GameObject playerObject, PerceptronNetwork network){
+		playerType = "Network";
 		this.playerObject = playerObject; 
+		this.network = network; 
+	}
+	
+	public Player(GameObject playerObject){
+		playerType = "Human";
+		this.playerObject = playerObject;
 	}
 	
 	public int[] getNextCoords(GameObject[][] board){
@@ -28,9 +32,9 @@ public class Player {
 					for(int i = 0; i < 3; i++){ //Should cycle through all 9 of the possible cases here. It assigns each respective network input a value based on the board. 
 						for(int j = 0; j < 3; j++){
 							if(board[i][j] == GameObject.X){
-								networkInputs[(i + 1) + 3 * (j+ 1)] = true;
+								networkInputs[(j + 1) + (3 * i)] = true;
 							} else if(board[i][j] == GameObject.O){
-								networkInputs[(i + 1) + 3 * (j+ 1) + 9] = true;
+								networkInputs[(j + 1) + (3 * i) + 9] = true;
 							}
 						}
 					}
@@ -39,25 +43,8 @@ public class Player {
 					
 				}
 			case "Human":
-			case "Test":
 				
-				testCount++;
-				int[] testCoords = new int[2];
-				
-				switch(testCount){
-					case 0: 
-						testCoords[0] = 0;
-						testCoords[1] = 0;
-						;
-					case 1: 
-						testCoords[0] = 1; 
-						testCoords[1] = 0;
-				}
-				
-				return testCoords;
-				
-				
-			default:
+			default: break;
 		}
 		
 		return coords;
@@ -65,6 +52,10 @@ public class Player {
 	
 	public void setNetwork(PerceptronNetwork network){
 		this.network = network; 
+	}
+	
+	public Network getNetwork(){
+		return network;
 	}
 	
 	public void setPlayerType(String playerType){

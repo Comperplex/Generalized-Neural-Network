@@ -24,7 +24,7 @@ public abstract class EvolutionHandler {
 	protected int generationCount = 0; 
 	protected TrainingSet set; 
 	
-	public EvolutionHandler(int numStartingNetworks, int numGenerations, TrainingSet set){
+	public EvolutionHandler(int numStartingNetworks, TrainingSet set){
 		this.set = set; 
 		currentGeneration = new ArrayList<Network>();
 		
@@ -34,7 +34,7 @@ public abstract class EvolutionHandler {
 		}
 	}
 	
-	public abstract ArrayList<Network> runEvolution(int numGenerations);
+	public abstract ArrayList<Network> runEvolution(int numGenerations); //Returns an arrayList of networks representing the current generation after the end of the evolution sequence 
 	
 	public ArrayList<Network> getCurrentGeneration(){
 		return currentGeneration;

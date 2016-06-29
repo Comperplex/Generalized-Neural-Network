@@ -31,8 +31,7 @@ public class GameBoard {
 		return isSuccess;
 	}
 	
-	public TurnResult runTurn(Player pO, Player pX){ //returns a boolean to pass on the success/failure of the piece placement //no bad.. make this return an ENUM for the game state.
-		
+	public TurnResult runTurn(Player pX, Player pO){ //returns a boolean to pass on the success/failure of the piece placement //no bad.. make this return an ENUM for the game state.
 		GameObject attemptedPlace = gameState.getGameObjectForTurn();
 		boolean isSuccess = false;
 		int[] coords;

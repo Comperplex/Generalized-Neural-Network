@@ -40,15 +40,13 @@ public class TicTacToe implements Runnable {
 	
 	public TicTacToeResult runGame(Player pO, Player pX){ //pO must be of player type O and pX must be of player type X
 		TicTacToeResult result = new TicTacToeResult();
-		ArrayList<TurnResult> turns = new ArrayList<TurnResult>();
-		int numFails = 0; 
 		
 		while(!board.isGameOver()){ //do this while the game is not over
-			TurnResult currentResult = board.runTurn(pO, pX);
-			turns.add(currentResult);
+			TurnResult currentResult = board.runTurn(pO, pX); //THIS IS WHERE THE TURN HAPPENS! pO and pX do different things depending on their player type
+			result.addGameTurn(currentResult);
 		}
+		result.setFinalState(board.getGameState());
 		return result; 
-		
 	}
 
 	public void update() {
