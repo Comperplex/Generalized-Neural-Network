@@ -28,7 +28,7 @@ public class TicTacToeTrainingSet implements TwoPlayerGameTrainingSet {
 		return ticTacToeAI;
 	}
 	
-	public void playTrainingGame(Network pANet, Network pBNet){
+	public void playTrainingGame(Network pANet, Network pBNet, int generationSize){
 		if(pANet.getNetworkName() == NETWORK_NAME && pBNet.getNetworkName() == NETWORK_NAME //Making sure the networks in question are the right type.
 				&& pANet instanceof PerceptronNetwork && pBNet instanceof PerceptronNetwork){ 
 			
@@ -39,18 +39,25 @@ public class TicTacToeTrainingSet implements TwoPlayerGameTrainingSet {
 			toe.start();
 			currentResult = toe.runGame(pO, pX);
 			
-			pANet.setFitnessValue(fitnessFunction(pANet)); 
-			pBNet.setFitnessValue(fitnessFunction(pBNet));
+			pANet.setFitnessValue(fitnessFunction(pANet, generationSize)); 
+			pBNet.setFitnessValue(fitnessFunction(pBNet, generationSize));
 		}
 	}
 
 	@Override
-	public double fitnessFunction(Network network) { 
-		//Each network should play twice. Once as X and once as O against the same network opponent
+	public double fitnessFunction(Network network, int generationSize) { 
+		double fitnessValue = 0; //Zero is a base score, neither positive nor negative
+		//BEGIN TENTATIVE FITNESS FUNCTION CODE
+		
+		fitnessValue = network.getFitnessValue() + fitnessValue / (2 * generationSize); 
+		//This combines the new fitness value for the current game with the running total.
+		//Fitnessvalue is scaled down by twice the generation size since each network plays against each other network twice.
+		//END TENTATIVE FITNESS FUNCTION CODE
+		
+		return fitnessValue; 
 		//Fitness function for tic tac toe should take into account the following things; 
 		//Number of wins out of 2 rounds with its opponent. Wins should have high priority over ties and dead games. 
 		//win > tie > loss > dead game
 		//Count the number of correctly placed pieces per match. Use this as a secondary contribution to the fitness function. 
-		return 0;
 	}
 }

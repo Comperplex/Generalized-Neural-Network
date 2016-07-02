@@ -5,6 +5,8 @@ import java.util.Arrays;
 public class GameBoard {
 	private GameObject[][] board; 
 	private GameState gameState;
+	private int turnCount = 0;
+	
 	private static final GameState STARTING_PLAYER = GameState.X_TURN;
 	
 	public GameBoard(){
@@ -36,17 +38,25 @@ public class GameBoard {
 		boolean isSuccess = false;
 		int[] coords;
 		
+		turnCount++;
+		
 		switch(gameState){
 			case X_TURN:
 				coords = pX.getNextCoords(board); 
+				if(coords[0] < 0 || coords[0] > 2 || coords[1] < 0 || coords[1] > 2){
+					return TurnResult.X_FAILS; 
+				}
 				isSuccess = placePieceAtLocation(coords[0], coords[1], GameObject.X);
-				gameState = testAllWins();
+				runWinDetection();
 				return attemptedPlace.getEquivalentTurnResultState(isSuccess);
 				
 			case O_TURN:
 				coords = pO.getNextCoords(board);
+				if(coords[0] < 0 || coords[0] > 2 || coords[1] < 0 || coords[1] > 2){
+					return TurnResult.O_FAILS; 
+				}
 				isSuccess = placePieceAtLocation(coords[0], coords[1], GameObject.O);
-				gameState = testAllWins();
+				runWinDetection();
 				return attemptedPlace.getEquivalentTurnResultState(isSuccess);
 				
 			default: return TurnResult.NO_TRY;
@@ -76,14 +86,21 @@ public class GameBoard {
 	}
 	
 	public boolean isBoardFull(){
-		return Arrays.asList(board).contains(GameObject.BLANK);
+		boolean isFull = true;
+		
+		for(GameObject[] g: board){
+			if(Arrays.asList(g).contains(GameObject.BLANK)){
+				isFull = false; 
+			}
+		}
+		return isFull;
 	}
 	
 	public boolean isGameOver(){
-		return gameState == GameState.TIE || gameState == GameState.X_WINS || gameState == GameState.O_WINS;
+		return gameState != GameState.O_TURN && gameState != GameState.X_TURN;
 	}
 	
-	public GameState testAllWins(){
+	public void runWinDetection(){
 		detectWinAt(1, 1, 1, 0); //Middle row horizontal
 		detectWinAt(1, 1, 0, 1); //Middle column vertical
 		detectWinAt(1, 1, -1, -1); //Negative diagonal
@@ -93,11 +110,17 @@ public class GameBoard {
 		detectWinAt(1, 0, 1, 0); //Top row horizontal
 		detectWinAt(1, 2, 1, 0); //Bottom row horizontal
 		
-		if(gameState == GameState.X_TURN || gameState == GameState.O_TURN){
-			gameState = gameState.switchTurn();
-		}
+		System.out.println(isBoardFull());
 		
-		return gameState;
+		if(gameState == GameState.X_TURN || gameState == GameState.O_TURN){
+			if(isBoardFull()){
+				gameState = GameState.TIE;
+			} else{
+				gameState = gameState.switchTurn();
+			}
+		} else if(turnCount > 18){
+			gameState = GameState.INCOMPLETE;
+		}
 	}
 	
 	public void setGameState(GameState state){
@@ -114,6 +137,7 @@ public class GameBoard {
 	
 	public void resetBoard(){
 		gameState = STARTING_PLAYER;
+		turnCount = 0;
 		
 		for(GameObject[] row : board){
 			Arrays.fill(row, GameObject.BLANK);

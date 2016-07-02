@@ -22,13 +22,16 @@ public abstract class EvolutionHandler {
 	
 	protected ArrayList<Network> currentGeneration;
 	protected int generationCount = 0; 
+	protected int generationSize;
 	protected TrainingSet set; 
 	
-	public EvolutionHandler(int numStartingNetworks, TrainingSet set){
+	
+	public EvolutionHandler(int generationSize, TrainingSet set){
 		this.set = set; 
+		this.generationSize = generationSize; 
 		currentGeneration = new ArrayList<Network>();
 		
-		for(int i = 0; i < numStartingNetworks; i++){
+		for(int i = 0; i < generationSize; i++){
 			Network trainingSetNetwork = Mutator.randomizeNetworkWeights(set.generateTrainingSetNetwork(), MAXIMIN_BIAS, MAXIMIN_INPUT, 1);
 			currentGeneration.add(trainingSetNetwork);
 		}

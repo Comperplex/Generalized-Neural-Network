@@ -22,14 +22,6 @@ public class PerceptronNetwork extends Network {
 		layers.add(new PerceptronLayer(previousLayerOutputs, numOutputs));
 	}
 
-	public double getFitnessValue() {
-		return fitnessValue;
-	}
-
-	public void setFitnessValue(double fitnessValue) {
-		this.fitnessValue = fitnessValue;
-	}
-
 	@Override
 	public void addNetworkAsLayer(Network network) {
 		if(network instanceof PerceptronNetwork){

@@ -13,7 +13,12 @@ public class TwoPlayerGameEvoHandler extends EvolutionHandler {
 
 	@Override
 	public ArrayList<Network> runEvolution(int numGenerations) {
-		// TODO Auto-generated method stub
+		for(Network n1: currentGeneration){
+			for(Network n2: currentGeneration){
+				((TwoPlayerGameTrainingSet) set).playTrainingGame(n1, n2, generationSize); //Every network plays with every other network as both pA and pB
+				((TwoPlayerGameTrainingSet) set).playTrainingGame(n2, n1, generationSize);
+			}
+		}
 		return null;
 	}
 

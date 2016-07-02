@@ -3,7 +3,7 @@ package tictactoe;
 import networkStructure.Network;
 import networkStructure.PerceptronNetwork;
 
-public class Player {
+public class Player { //TODO it might be nice to have a perceptron Player and a Sigmoid player. Both would have to extend an abstract player class
 	private GameObject playerObject;
 	private String playerType;
 	private PerceptronNetwork network;
@@ -20,8 +20,7 @@ public class Player {
 	}
 	
 	public int[] getNextCoords(GameObject[][] board){
-		int[] coords = new int[2];
-
+		int[] coords = new int[2]; //coords[0] is xLoc, coords[1] is yLoc
 		
 		switch(playerType){
 			case "Network":
@@ -41,8 +40,30 @@ public class Player {
 					
 					Boolean[] networkOutputs = (Boolean[]) network.propagateInput(networkInputs);
 					
+					if(networkOutputs.length == 9){ //just in case...
+						
+						int outputCount = 0;
+						int locationOfOutput = 0; 
+						//TODO it may be more efficient to have the network output in binary instead? Or maybe just pick the first output if it outputs more than one
+						
+						for(int i = 0; i < 9; i++){
+							if(networkOutputs[i]){
+								outputCount++;
+								locationOfOutput = i;
+							}
+						}
+						
+						if(outputCount == 1){
+							coords[0] = locationOfOutput % 3; //Mod 3 should give the x coord of the output
+							coords[1] = (locationOfOutput - coords[0]) / 3;
+						} else{
+							coords[0] = -1; //Causes the turn to fail for the network
+							coords[1] = -1; //Causes the turn to fail for the network
+						}
+					}
 				}
 			case "Human":
+				//TODO Add human input parsing here
 				
 			default: break;
 		}
