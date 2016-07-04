@@ -83,5 +83,7 @@ public class Player { //TODO it might be nice to have a perceptron Player and a 
 		this.playerType = playerType;
 	}
 	
-	
+	public GameObject getPlayerObject() {
+		return playerObject;
+	}
 }

@@ -3,11 +3,13 @@ package tictactoe;
 public class TicTacToeResult{
 	private GameState finalState;
 	
-	private int aMoveCount; //TODO are these variables still necessary? 
-	private int aFailCount; 
+	private int xMoveCount; //TODO are these variables still necessary? 
+	private int xFailCount; 
 	
-	private int bMoveCount;
-	private int bFailCount;
+	private int oMoveCount;
+	private int oFailCount;
+	
+	private int turnCount; 
 	
 	public GameState getFinalState() {
 		return finalState;
@@ -17,29 +19,34 @@ public class TicTacToeResult{
 	}
 	
 	public void addGameTurn(TurnResult result){
+		turnCount++;
 		switch(result){
-			case O_SUCCEEDS: bMoveCount++; 
-			case O_FAILS: bFailCount++;
-			case X_SUCCEEDS: aMoveCount++;
-			case X_FAILS: aFailCount++;
+			case O_SUCCEEDS: oMoveCount++; 
+			case O_FAILS: oFailCount++;
+			case X_SUCCEEDS: xMoveCount++;
+			case X_FAILS: xFailCount++;
 			default: break; 
 		}
 		
 	}
 	
 	public int getxMoveCount() {
-		return aMoveCount;
+		return xMoveCount;
 	}
 
 	public int getxFailCount() {
-		return aFailCount;
+		return xFailCount;
 	}
 
 	public int getoMoveCount() {
-		return bMoveCount;
+		return oMoveCount;
 	}
 
 	public int getoFailCount() {
-		return bFailCount;
+		return oFailCount;
+	}
+	
+	public int getTurnCount(){
+		return turnCount; 
 	}
 }

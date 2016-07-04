@@ -43,4 +43,7 @@ public abstract class EvolutionHandler {
 		return currentGeneration;
 	}
 	
+	public int getGenerationSize(){
+		return generationSize; 
+	}
 }
